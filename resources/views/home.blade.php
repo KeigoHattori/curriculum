@@ -23,15 +23,24 @@
         </div>
     </form>
 
-    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="row">
         @if ($items->count() > 0)
             @foreach ($items as $item)
-                <a href="{{ route('item.details', $item->id) }}">
-                    <img src="{{ asset('path/to/image.jpg') }}" alt="商品画像">
-                </a>
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                    <img src="{{ asset('path/to/image/directory/' . $item->image_file_name) }}" alt="商品画像"> 
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $item->item_name }}</h5>
+                            <p class="card-text">価格: ¥{{ number_format($item->price) }}</p>
+                            <a href="{{ route('item.details', $item->id) }}" class="btn btn-primary">詳細を見る</a>
+                        </div>
+                    </div>
+                </div>
             @endforeach
         @else
-            <p class="text-center" style="font-size: 300%;">商品はありません。</p>
+            <div class="col-md-12">
+                <p class="text-center" style="font-size: 300%;">商品はありません。</p>
+            </div>
         @endif
     </div>
 </div>

@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Item;
-use App\Models\User;
+use App\Item;
 
 class ItemController extends Controller
 {
@@ -45,7 +45,7 @@ class ItemController extends Controller
          $items = Item::all();
 
          // 商品一覧を表示するビューにデータを渡す
-         return view('items.index', compact('items'));
+         return view('home', compact('items'));
     }
 
     /**
@@ -66,19 +66,25 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        // 商品の登録処理
-        $validatedData = $request->validate([
-            'item_name' => 'required|max:30',//（出品名）: 必須フィールドであり、最大30文字まで入力可能
-            'price' => 'required|numeric|min:0|max:999999999',//（価格）: 必須フィールドであり、0以上999,999,999以下の数値
-            'item_description' => 'max:300',//（商品説明）: 最大300文字まで入力可能
-            'item_status' => 'required|max:10',//（商品の状態）: 必須フィールドであり、最大10文字まで入力可能
-        ]);
+{
+    // 商品の登録処理
+    $validatedData = $request->validate([
+        'item_name' => 'required|max:30',
+        'price' => 'required|numeric|min:0|max:999999999',
+        'item_description' => 'max:300',
+        'item_status' => 'required|max:10',
+    ]);
 
-        Item::create($validatedData);
+    // ログインしているユーザーのIDを取得
+    $user_id = Auth::id();
 
-        return redirect()->route('items.index')->with('success', '商品を登録しました');
-    }
+    // Itemモデルを作成してuser_idを設定
+    $item = new Item($validatedData);
+    $item->user_id = $user_id;
+    $item->save();
+
+    return redirect()->route('home')->with('success', '商品を登録しました');
+}
 
     /**
      * Display the specified resource.

@@ -21,15 +21,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//ホームページのルート
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// ホームページのルート
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-//リソースコントローラー
+// リソースコントローラー
 Route::resource('items', 'ItemController');
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');//ログイン画面へのルート
-Route::get('/exhibit', [ItemController::class, 'create'])->name('exhibit');//出品画面へのルート
-Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.details');//商品詳細ページ
-Route::get('/search', [ItemController::class, 'search'])->name('search');//検索処理
-
+Route::get('/login', [AuthController::class, 'login'])->name('login'); // ログイン画面へのルート
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');// ログアウト処理
+Route::get('/exhibit', [ItemController::class, 'create'])->name('exhibit'); // 出品画面へのルート
+Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.details'); // 商品詳細ページ
+Route::get('/search', [ItemController::class, 'search'])->name('search'); // 検索処理
 

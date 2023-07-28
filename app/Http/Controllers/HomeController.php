@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Item;
-use App\Models\User;
+use App\Item;
+use App\User;
 
 use Illuminate\Http\Request;
 
@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
 {
-    $items = \App\Models\Item::all();
+    $items = \App\Item::all();
     return view('home', compact('items'));
 }
 }

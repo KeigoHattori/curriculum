@@ -51,11 +51,15 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('exhibit') }}">
+                                    <button class="btn btn-primary">{{ __('出品') }}</button> 
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
+                                </a>                               
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -90,7 +94,7 @@
 
                 <div class="form-group">
                     <label for="price">価格</label>
-                    <input type="number" id="price" name="price" class="form-control" required>
+                    <input type="text" id="price" name="price" class="form-control" required>
                 </div>
 
                 <div class="form-group">
