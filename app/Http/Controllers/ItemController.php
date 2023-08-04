@@ -73,10 +73,17 @@ class ItemController extends Controller
         'price' => 'required|numeric|min:0|max:999999999',
         'item_description' => 'max:300',
         'item_status' => 'required|max:10',
+        'item_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
     // ログインしているユーザーのIDを取得
     $user_id = Auth::id();
+
+    // アップロードされた画像を処理する
+    if ($request->hasFile('item_image') && $request->file('item_image')->isValid()) {
+        $imagePath = $request->file('item_image')->store('items', 'public');
+        $validatedData['item_image'] = basename($imagePath);
+    }
 
     // Itemモデルを作成してuser_idを設定
     $item = new Item($validatedData);
@@ -92,10 +99,18 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
-    {
-        //
+    public function show($id)
+{
+    // 商品詳細を取得
+    $item = Item::find($id);
+
+    if (!$item) {
+        abort(404); // 商品が見つからない場合は404エラーを表示
     }
+
+    return view('items.itemdetail', compact('item'));
+}
+
 
     /**
      * Show the form for editing the specified resource.

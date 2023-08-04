@@ -24,24 +24,24 @@
     </form>
 
     <div class="row">
-        @if ($items->count() > 0)
-            @foreach ($items as $item)
-                <div class="col-md-3 mb-4">
-                    <div class="card">
-                    <img src="{{ asset('path/to/image/directory/' . $item->image_file_name) }}" alt="商品画像"> 
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $item->item_name }}</h5>
-                            <p class="card-text">価格: ¥{{ number_format($item->price) }}</p>
-                            <a href="{{ route('item.details', $item->id) }}" class="btn btn-primary">詳細を見る</a>
-                        </div>
+    @if ($items->count() > 0)
+        @foreach ($items as $item)
+            <div class="col-md-3 mb-4">
+            <div class="card " style="height: 100%;">
+                    <img src="{{ asset('storage/items/' . $item->item_image) }}" alt="商品画像" style="height: 200px;"> 
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $item->item_name }}</h5>
+                        <p class="card-text">価格: ¥{{ number_format($item->price) }}</p>
+                        <a href="{{ route('item.details', $item->id) }}" class="btn btn-primary">詳細を見る</a>
                     </div>
                 </div>
-            @endforeach
-        @else
-            <div class="col-md-12">
-                <p class="text-center" style="font-size: 300%;">商品はありません。</p>
             </div>
-        @endif
-    </div>
+        @endforeach
+    @else
+        <div class="col-md-12">
+            <p class="text-center" style="font-size: 300%;">商品はありません。</p>
+        </div>
+    @endif
 </div>
+
 @endsection

@@ -32,52 +32,48 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto"></ul>
 
-                    </ul>
+<!-- Right Side Of Navbar -->
+<ul class="navbar-nav ml-auto align-items-center">
+    <!-- Authentication Links -->
+    <!-- ログインしていない場合はログインリンクを表示 -->
+    @guest
+    <li class="nav-item">
+        <a href="{{ route('login') }}" class="nav-link btn btn-primary text-white">出品</a>
+    </li>
+    @endguest
+    @guest
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a>
+        </li>
+    @else
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('exhibit') }}">
+                <button class="btn btn-primary">{{ __('出品') }}</button>
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                {{ Auth::user()->name }} <span class="caret"></span>
+            </a>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto align-items-center">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('exhibit') }}">
-                                        <button class="btn btn-primary">{{ __('出品') }}</button> 
-                                    </a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('exhibit') }}">
-                                    <button class="btn btn-primary">{{ __('出品') }}</button> 
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('ログアウト') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('mypage.index') }}">マイページ</a>
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                    {{ __('ログアウト') }}
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </div>
+        </li>
+    @endguest    
+</ul>
             </div>
         </nav>
-
         <main class="py-4">
             <div class="container">
                 @yield('content')

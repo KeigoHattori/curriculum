@@ -1,8 +1,11 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MyPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +18,11 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
@@ -26,6 +31,13 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // リソースコントローラー
 Route::resource('items', 'ItemController');
+Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage.index');//マイページ
+Route::get('/edit', [MyPageController::class, 'edit'])->name('edit-profile');
+//マイページ編集
+Route::put('/mypage/{id}', [MyPageController::class, 'update'])->name('mypage.update');
+Route::get('/delete-account', [MyPageController::class, 'deleteAccount'])->name('delete-account');//マイページ退会
+
+
 
 Route::get('/login', [AuthController::class, 'login'])->name('login'); // ログイン画面へのルート
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');// ログアウト処理
