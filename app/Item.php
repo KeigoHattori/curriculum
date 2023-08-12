@@ -21,4 +21,28 @@ class Item extends Model
         });
     }
 
+    public function isSold()
+    {
+        return $this->purchases()->exists();
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes', 'item_id', 'user_id');
+    }
+
+    public function isLikedBy($userId)
+    {
+        return $this->likes()->where('user_id', $userId)->exists();
+    }
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Purchase;
+use App\Item;
+use App\User;
 
 class MyPageController extends Controller
 {
@@ -111,8 +114,69 @@ class MyPageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+       // 現在ログインしているユーザーを取得
+    $user = Auth::user();
+
+    // ユーザーに関連する商品を取得
+    $items = $user->items;
+
+    // ユーザーに関連する商品を削除
+    foreach ($items as $item) {
+        // 商品画像をストレージから削除（必要な場合）
+        Storage::disk('public')->delete('items/' . $item->item_image);
+
+        // 商品レコードを削除
+        $item->delete();
+    }
+
+    // ユーザーレコードを削除
+    $user->delete();
+
+    // ホームページなど適切なページにリダイレクト
+    return redirect()->route('login')->with('success', 'アカウントと関連する商品が削除されました');
+
+    }
+
+    //購入履歴
+    public function purchaseHistory()
+    {
+        $user = Auth::user(); // 現在ログインしているユーザーを取得
+        $purchaseHistory = Purchase::where('user_id', $user->id)
+            ->with('item') // 関連する商品情報を取得
+            ->orderByDesc('purchase_date')
+            ->get(); // ユーザーの購入履歴を取得
+
+        return view('mypage.purchase_history', compact('user', 'purchaseHistory'));
+    }
+
+    //売上履歴
+    public function salesHistory()
+    {
+        $user = Auth::user();
+        $salesHistory = Item::where('user_id', $user->id)
+        ->with('purchases') 
+        ->get();
+
+        return view('mypage.sales_history', compact('user', 'salesHistory'));
+    }
+
+    //フォロー一覧
+    public function following($id)
+    {
+        $user = User::findOrFail($id);
+        $following = $user->following; // ユーザーがフォローしているユーザー一覧を取得
+
+        return view('user.following', compact('user', 'following'));
+    }
+
+    //いいね一覧
+    public function likedItems()
+    {
+        $user = Auth::user();
+        $likedItems = $user->likedItems;
+        
+        return view('user.liked_items', compact('user', 'likedItems'));
     }
 }
