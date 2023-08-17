@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,13 @@ Route::resource('items', 'ItemController');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login'); // ログイン画面へのルート
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');// ログアウト処理
+Route::get('admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');//管理者
+Route::get('admin/user/suspend/{userId}', 'AdminController@suspendUser')->name('admin.user.suspend');
+Route::get('/admin/suspend/{userId}', 'AdminController@suspendUser')->name('suspend-user');
+Route::post('/admin/toggle/{userId}', 'AdminController@toggleUserStatus')->name('toggle-user-status');
+Route::delete('admin/item/hide/{itemId}', 'AdminController@hideItem')->name('item.hide');//商品非表示
+Route::put('admin/item/unhide/{itemId}', 'AdminController@unhideItem')->name('item.unhide');//再表示
+
 
 //マイページ
 Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage.index');//マイページ

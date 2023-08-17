@@ -147,7 +147,7 @@ public function showPurchase($id)
 public function purchase(Request $request, $id)
 {
     $validatedData = $request->validate([
-        'full_name' => 'required|max:255',
+        'full_name' => 'required|max:10',
         'phone_number' => 'required|max:20',
         'postal_code' => 'required|max:20',
         'address' => 'required',

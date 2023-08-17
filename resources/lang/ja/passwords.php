@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'reset' => 'Your password has been reset!',
-    'sent' => 'パスワードリセットのリンクをメールで送信しました',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
+    'reset' => 'パスワードがリセットされました。',
+    'sent' => 'パスワードリセットのリンクをメールで送信しました。',
+    'throttled' => '再試行する前にお待ちください。',
+    'token' => 'このパスワードリセットトークンは無効です。',
+    'user' => 'そのメールアドレスに対応するユーザーが見つかりませんでした。',
 
 ];

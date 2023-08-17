@@ -90,16 +90,26 @@
                 <div class="form-group">
                     <label for="item_name">商品名</label>
                     <input type="text" id="item_name" name="item_name" class="form-control" required>
+                    @error('item_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="price">価格</label>
-                    <input type="text" id="price" name="price" class="form-control" required>
+                    <input type="text" id="price" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" required>
+                    @error('price')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="item_status">商品の状態</label>
-                    <select name="item_status" id="item_status" class="form-control" required>
+                    <select name="item_status" id="item_status" class="form-control @error('item_status') is-invalid @enderror" required>
                         <option value="">選択してください</option>
                         <option value="新品、未使用">新品、未使用</option>
                         <option value="未使用に近い">未使用に近い</option>
@@ -108,16 +118,31 @@
                         <option value="傷や汚れあり">傷や汚れあり</option>
                         <option value="全体的に状態が悪い">全体的に状態が悪い</option>
                     </select>
+                    @error('item_status')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="item_description">商品説明</label>
-                    <textarea id="item_description" name="item_description" class="form-control" required></textarea>
+                    <textarea id="item_description" name="item_description" class="form-control @error('item_description') is-invalid @enderror" required></textarea>
+                    @error('item_description')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="item_image">商品画像</label>
-                    <input type="file" name="item_image" id="item_image" accept="image/*">
+                    <input type="file" name="item_image" id="item_image" accept="image/*" class="@error('item_image') is-invalid @enderror">
+                    @error('item_image')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
 
                 <button type="submit" class="btn btn-primary">登録</button>

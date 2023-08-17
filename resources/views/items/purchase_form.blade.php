@@ -14,23 +14,35 @@
                             <label for="full_name">氏名</label>
                             <input id="full_name" type="text" class="form-control" name="full_name" required
                                 value="{{ old('full_name', $user->full_name) }}">
+                            @error('full_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="phone_number">電話番号</label>
                             <input id="phone_number" type="text" class="form-control" name="phone_number" required
                                 value="{{ old('phone_number', $user->phone_number) }}">
+                            @error('phone_number')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="postal_code">郵便番号</label>
                             <input id="postal_code" type="text" class="form-control" name="postal_code" required
                                 value="{{ old('postal_code', $user->postal_code) }}">
+                            @error('postal_code')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="address">住所</label>
                             <textarea id="address" class="form-control" name="address" rows="3" required>{{ old('address', $user->address) }}</textarea>
+                            @error('address')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <button type="submit" class="btn btn-primary">購入する</button>
