@@ -61,7 +61,7 @@
     <!-- 画面下部 -->
     <div class="row justify-content-left"> 
         @if ($items->count() > 0)
-            @foreach ($items as $item)
+            @foreach ($items->sortByDesc('created_at') as $item)
                 <div class="col-md-3 mb-2">
                     <div class="card" style="height: 100%;">
                         <img src="{{ asset('storage/items/' . $item->item_image) }}" alt="商品画像" style="height: 250px;"> 

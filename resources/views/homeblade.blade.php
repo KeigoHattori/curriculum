@@ -25,7 +25,7 @@
 
     <div class="row">
     @if ($items->count() > 0)
-        @foreach ($items as $item)
+        @foreach ($items->sortByDesc('created_at') as $item)
             @if (!$item->is_hidden) <!-- Check if the item is not hidden -->
                 <div class="col-md-3 mb-4">
                     <div class="card " style="height: 100%;">

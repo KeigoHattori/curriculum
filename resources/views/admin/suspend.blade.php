@@ -16,7 +16,7 @@
             <!-- ユーザー非表示ボタン -->
             <!-- ユーザー非表示/再表示ボタン -->
             <div class="text-center mb-2">
-                <form action="{{ route('toggle-user-status', $user->id) }}" method="POST">
+                <form action="{{ route('toggle-user-status', $user->id) }}" method="POST" novalidate>
                     @csrf
                     <button type="submit" class="btn btn-danger">
                         {{ $user->is_active ? 'ユーザー非表示' : 'ユーザー再表示' }}
@@ -57,14 +57,14 @@
                             @endif
                             @if ($item->is_hidden)
                                 <!-- 商品再表示ボタン -->
-                                <form action="{{ route('item.unhide', $item->id) }}" method="POST">
+                                <form action="{{ route('item.unhide', $item->id) }}" method="POST" novalidate>
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="btn btn-success" onclick="return confirm('この商品を再表示にしますか？')">商品再表示</button>
                                 </form>
                             @else
                                 <!-- 商品非表示ボタン -->
-                                <form action="{{ route('item.hide', $item->id) }}" method="POST">
+                                <form action="{{ route('item.hide', $item->id) }}" method="POST" novalidate>
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger" onclick="return confirm('この商品を非表示にしますか？')">商品非表示</button>

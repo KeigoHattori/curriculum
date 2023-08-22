@@ -8,7 +8,7 @@
                 <div class="card-header">商品編集</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('item.update', $item->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('item.update', $item->id) }}" enctype="multipart/form-data" novalidate>
                         @csrf
                         @method('PUT')
 
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </form>
-                        <form method="POST" action="{{ route('item.destroy', $item->id) }}">
+                        <form method="POST" action="{{ route('item.destroy', $item->id) }}" novalidate>
                             @csrf
                             @method('DELETE')
 

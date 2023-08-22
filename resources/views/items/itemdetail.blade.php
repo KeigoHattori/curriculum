@@ -11,17 +11,20 @@
                 <p>画像がありません</p>
             @endif
 
-            <!-- 商品画像の下に「いいね」ボタン -->
-            <form action="{{ route('item.like', $item->id) }}" method="POST">
-    @csrf
-    <button type="submit" class="btn btn-primary">
-        @if (Auth::user()->likedItems->contains($item->id))
-            いいね解除
-        @else
-            いいね
-        @endif
-    </button>
-</form>
+           <!-- 商品画像の下に「いいね」ボタン -->
+     <!-- ユーザーがログインしている場合のみ表示 -->
+     @auth
+        <form action="{{ route('item.like', $item->id) }}" method="POST" novalidate>
+            @csrf
+            <button type="submit" class="btn btn-primary">
+                @if (Auth::user()->likedItems->contains($item->id))
+                    いいね解除
+                @else
+                    いいね
+                @endif
+            </button>
+        </form>
+    @endauth
 
             <!-- 「出品者」ボタン -->
             <a href="{{ route('user.profile', $item->user->id) }}" class="btn btn-secondary mt-2">出品者</a>
@@ -38,11 +41,13 @@
                     <p><strong>商品の説明:</strong> {{ $item->item_description }}</p>
 
                     <!-- 表示を変更 -->
-                    @if ($item->isSold())
-                        <p class="text-danger">SOLD OUT</p>
+                    @if (!$item->isSold())
+                        @if (Auth::check() && $item->user_id !== Auth::user()->id)
+                            <!-- 「購入」ボタン -->
+                            <a href="{{ route('item.purchase', $item->id) }}" class="btn btn-success">購入</a>
+                        @endif
                     @else
-                        <!-- 「購入」ボタン -->
-                        <a href="{{ route('item.purchase', $item->id) }}" class="btn btn-success">購入</a>
+                        <p class="text-danger">SOLD OUT</p>
                     @endif
                 </div>
             </div>

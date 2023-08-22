@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">プロフィール編集</div>
         <div class="card-body">
-        <form action="{{ route('mypage.update', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('mypage.update', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data" novalidate>
                 @csrf
                 @method('PUT')
 

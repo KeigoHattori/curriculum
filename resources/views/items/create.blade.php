@@ -84,7 +84,7 @@
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="col-md-6">
         <h2 class="text-center mb-4">出品登録</h2>
-        <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data" novalidate>
             @csrf
 
                 <div class="form-group">

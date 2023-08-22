@@ -8,7 +8,7 @@
                     <div class="card-header">商品購入</div>
 
                     <div class="card-body">
-                    <form method="POST" action="{{ route('item.purchase.submit', $item->id) }}">
+                    <form method="POST" action="{{ route('item.purchase.submit', $item->id) }}" novalidate>
                         @csrf
                         <div class="form-group">
                             <label for="full_name">氏名</label>
